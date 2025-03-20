@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "55147572492",
+    "project_id": "focus-pocus-backend",
+    "storage_bucket": "focus-pocus-backend.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:55147572492:android:3a54686606450b63b9ed29",
+        "android_client_info": {
+          "package_name": "com.fullsail.focuspocus"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNjcb7bm_tgGxu917GOqwmAxTri4QMIxo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
