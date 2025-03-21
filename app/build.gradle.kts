@@ -1,3 +1,12 @@
+import com.android.manifmerger.Actions.load
+import java.util.Properties
+
+val localProperties = Properties().apply {
+    load(File(rootProject.rootDir, "local.properties").inputStream())
+}
+
+val firebaseApiKey = localProperties.getProperty("FIREBASE_API_KEY")
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -18,13 +27,21 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    buildFeatures {
+        buildConfig = true
+    }
+
     buildTypes {
+        debug {
+            buildConfigField("String", "FIREBASE_API_KEY", "\"${localProperties.getProperty("FIREBASE_API_KEY")}\"")
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "FIREBASE_API_KEY", "\"${localProperties.getProperty("FIREBASE_API_KEY")}\"")
         }
     }
     compileOptions {
