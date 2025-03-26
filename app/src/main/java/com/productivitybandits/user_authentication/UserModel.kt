@@ -33,6 +33,35 @@ fun registerUser(user:User, onResult: (Boolean, String?) -> Unit){
         }
 }
 
+//// Existing User Login ////
+fun loginUser(user: User, onResult: (User?) -> Unit) {
+    val auth = FirebaseAuth.getInstance()
+    val db = FirebaseFirestore.getInstance()
+
+    auth.signInWithEmailAndPassword(user.email, user.password)
+        .addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                return@addOnCompleteListener
+                db.collection("users").document(user.uid).get()
+                    .addOnSuccessListener { document ->
+                        if (document.exists()) {
+                            val existingUser = document.toObject(User::class.java)
+                            onResult(existingUser)
+                        } else {
+                            onResult(null)
+                        }
+                    }
+                    .addOnFailureListener { e ->
+                        Log.e("Firestore", "Error fetching user", e)
+                        onResult(null)
+                    }
+            } else {
+                Log.e("Auth", "Login failed", task.exception)
+                onResult(null)
+            }
+        }
+}
+
 fun getUser(user:User, onResult:(User?) -> Unit) {
     val db = FirebaseFirestore.getInstance()
     db.collection("users").document(user.uid).get()
@@ -50,6 +79,7 @@ fun getUser(user:User, onResult:(User?) -> Unit) {
             onResult(null)
         }
 }
+
 
 
 
