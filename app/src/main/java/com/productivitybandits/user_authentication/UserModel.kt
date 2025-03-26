@@ -33,5 +33,23 @@ fun registerUser(user:User, onResult: (Boolean, String?) -> Unit){
         }
 }
 
+fun getUser(user:User, onResult:(User?) -> Unit) {
+    val db = FirebaseFirestore.getInstance()
+    db.collection("users").document(user.uid).get()
+        .addOnSuccessListener { document ->
+            if(document.exists()) {
+                val existingUser = document.toObject(User::class.java)
+                onResult(existingUser)
+            } else {
+                onResult(null)
+            }
+
+        }
+        .addOnFailureListener { e ->
+            Log.e("Firestore", "Error fetching user", e)
+            onResult(null)
+        }
+}
+
 
 
