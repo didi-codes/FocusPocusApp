@@ -25,7 +25,7 @@ import kotlinx.coroutines.launch
 import android.view.Menu
 import android.view.MenuItem
 import androidx.lifecycle.repeatOnLifecycle
-
+import android.content.Intent
 
 
 
@@ -63,15 +63,6 @@ class MainActivity : AppCompatActivity() {
             AuthViewModelFactory(authRepository, sessionManager)
         )[AuthViewModel::class.java]
 
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                authViewModel.isAuthenticated.collect { isLoggedIn ->
-                    if (!isLoggedIn) {
-                        showLoginDialog()
-                    }
-                }
-            }
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -144,8 +135,9 @@ class MainActivity : AppCompatActivity() {
                 lifecycleScope.launch {
                     val success = authViewModel.login(username, password)
                     if (success) {
-                        findNavController(R.id.nav_host_fragment_content_main)
-                            .navigate(R.id.navigation_dashboard)
+                        val intent = Intent(this@MainActivity, DashboardActivity::class.java)
+                        startActivity(intent)
+                        finish()
                     } else {
                         showLoginError()
                     }

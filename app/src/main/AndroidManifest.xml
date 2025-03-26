@@ -25,7 +25,16 @@
         </activity>
 
         <!-- MainActivity -->
-        <activity android:name=".MainActivity" android:exported="true"/>
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="Login"/>
+
+        <activity
+            android:name=".DashboardActivity"
+            android:exported="true"
+            android:label="Dashboard"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
     </application>
 
 </manifest>

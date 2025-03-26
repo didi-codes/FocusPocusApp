@@ -1,9 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Theme.FocusPocusNEW" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-    </style>
+    <!-- Application theme -->
+    <style name="Theme.FocusPocusNEW" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary colors -->
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorPrimaryVariant">@color/gray</item>
+        <item name="colorOnPrimary">@color/white</item>
 
-    <style name="Theme.FocusPocusApp" parent="Base.Theme.FocusPocusApp" />
+        <!-- Status Bar -->
+        <item name="android:statusBarColor">@color/black</item>
+    </style>
 </resources>
