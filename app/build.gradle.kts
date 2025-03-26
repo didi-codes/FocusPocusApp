@@ -68,6 +68,8 @@ dependencies {
     implementation(libs.protolite.well.known.types)
     implementation("com.google.firebase:firebase-analytics:21.3.0")
     implementation(libs.firebase.firestore.ktx)
+    implementation(libs.google.firebase.firestore.ktx)
+    implementation(libs.firebase.auth.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
