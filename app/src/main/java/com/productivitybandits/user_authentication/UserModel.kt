@@ -62,6 +62,7 @@ fun loginUser(user: User, onResult: (User?) -> Unit) {
         }
 }
 
+//// Utilities ////
 fun getUser(user:User, onResult:(User?) -> Unit) {
     val db = FirebaseFirestore.getInstance()
     db.collection("users").document(user.uid).get()
@@ -79,6 +80,7 @@ fun getUser(user:User, onResult:(User?) -> Unit) {
             onResult(null)
         }
 }
+
 
 
 
