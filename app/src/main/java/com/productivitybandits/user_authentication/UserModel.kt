@@ -14,8 +14,14 @@ fun registerUser(user:User, onResult: (Boolean, String?) -> Unit){
         .addOnCompleteListener{ task ->
             if (task.isSuccessful) {
                 val uid = auth.currentUser?.uid ?: return@addOnCompleteListener
-                val newUser = user.copy(uid = uid)
-
+                val newUser = mapOf(
+                    "uid" to uid,
+                    "firstName" to user.firstName,
+                    "lastname" to user.lastName,
+                    "email" to user.email,
+                    "password" to user.password,
+                    "username" to user.username,
+                )
                 db.collection("users").document(uid).set(newUser)
                     .addOnSuccessListener {
                         Log.d("FirebaseAuth", "User registered and stored in firestore ")
