@@ -1,6 +1,5 @@
 package com.productivitybandits.focuspocusapp
 
-import android.app.Application
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
@@ -10,16 +9,23 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
-import com.productivitybandits.focuspocusapp.databinding.ActivityMainBinding
 import com.google.firebase.FirebaseApp
+import com.productivitybandits.focuspocusapp.databinding.ActivityMainBinding
+import com.productivitybandits.user_authentication.registerUser
+
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if (!FirebaseApp.getApps(this).isEmpty()) {
+            FirebaseApp.initializeApp(this)
+        }
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -34,6 +40,27 @@ class MainActivity : AppCompatActivity() {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null)
                 .setAnchorView(R.id.fab).show()
+        }
+
+        // Example call to registerUser with static values
+        val email = "user@example.com"
+        val password = "password123"
+        val username = "buddy22"
+        val firstname = "John"
+        val lastname = "doe"
+
+
+        // Call registerUser to register this new user
+        registerUser(
+            email, password, username, firstname, lastname
+        ) { isSuccess, result ->
+            if (isSuccess) {
+                // Handle success: user registered successfully
+                println("Registration successful! User ID: $result")
+            } else {
+                // Handle failure: something went wrong
+                println("Registration failed: $result")
+            }
         }
     }
 
@@ -59,10 +86,5 @@ class MainActivity : AppCompatActivity() {
                 || super.onSupportNavigateUp()
     }
 
-    class MyApp : Application() {
-        override fun onCreate() {
-            super.onCreate()
-            FirebaseApp.initializeApp(this)
-        }
-    }
+
 }

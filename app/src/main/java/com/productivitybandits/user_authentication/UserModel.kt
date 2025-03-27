@@ -6,7 +6,7 @@ import android.util.Log
 
 
 ///// Register New User /////
-fun registerUser(email: String, password: String, username: String, firstname: String, lastName: String, onResult: (Boolean, String?) -> Unit){
+fun registerUser(email: String, password: String, username: String, firstName: String, lastName: String, onResult: (Boolean, String?) -> Unit){
     val auth = FirebaseAuth.getInstance()
     val db = FirebaseFirestore.getInstance()
 
@@ -16,8 +16,8 @@ fun registerUser(email: String, password: String, username: String, firstname: S
                 val uid = auth.currentUser?.uid ?: return@addOnCompleteListener
                 val user = mapOf(
                     "uid" to uid,
-                    "firstName" to firstname,
-                    "lastname" to lastName,
+                    "firstname" to firstName,
+                    "lastName" to lastName,
                     "email" to email,
                     "password" to password,
                     "username" to username,
