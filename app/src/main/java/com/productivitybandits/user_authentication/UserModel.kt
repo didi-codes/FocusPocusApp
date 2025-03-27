@@ -6,23 +6,23 @@ import android.util.Log
 
 
 ///// Register New User /////
-fun registerUser(user:User, onResult: (Boolean, String?) -> Unit){
+fun registerUser(email: String, password: String, username: String, firstname: String, lastName: String, onResult: (Boolean, String?) -> Unit){
     val auth = FirebaseAuth.getInstance()
     val db = FirebaseFirestore.getInstance()
 
-    auth.createUserWithEmailAndPassword(user.email, user.password)
+    auth.createUserWithEmailAndPassword(email, password)
         .addOnCompleteListener{ task ->
             if (task.isSuccessful) {
                 val uid = auth.currentUser?.uid ?: return@addOnCompleteListener
-                val newUser = mapOf(
+                val user = mapOf(
                     "uid" to uid,
-                    "firstName" to user.firstName,
-                    "lastname" to user.lastName,
-                    "email" to user.email,
-                    "password" to user.password,
-                    "username" to user.username,
+                    "firstName" to firstname,
+                    "lastname" to lastName,
+                    "email" to email,
+                    "password" to password,
+                    "username" to username,
                 )
-                db.collection("users").document(uid).set(newUser)
+                db.collection("users").document(uid).set(user)
                     .addOnSuccessListener {
                         Log.d("FirebaseAuth", "User registered and stored in firestore ")
                         onResult(true, uid)
@@ -39,20 +39,22 @@ fun registerUser(user:User, onResult: (Boolean, String?) -> Unit){
         }
 }
 
+
+
 //// Existing User Login ////
-fun loginUser(user: User, onResult: (User?) -> Unit) {
+fun loginUser(email: String, password: String, onResult: (User?) -> Unit) {
     val auth = FirebaseAuth.getInstance()
     val db = FirebaseFirestore.getInstance()
 
-    auth.signInWithEmailAndPassword(user.email, user.password)
+    auth.signInWithEmailAndPassword(email, password)
         .addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                return@addOnCompleteListener
-                db.collection("users").document(user.uid).get()
+                val uid = auth.currentUser?.uid ?: return@addOnCompleteListener
+                db.collection("users").document(uid).get()
                     .addOnSuccessListener { document ->
                         if (document.exists()) {
-                            val existingUser = document.toObject(User::class.java)
-                            onResult(existingUser)
+                            val user = document.toObject(User::class.java)
+                            onResult(user)
                         } else {
                             onResult(null)
                         }
@@ -69,13 +71,13 @@ fun loginUser(user: User, onResult: (User?) -> Unit) {
 }
 
 //// Utilities ////
-fun getUser(user:User, onResult:(User?) -> Unit) {
+fun getUser(uid: String, onResult:(User?) -> Unit) {
     val db = FirebaseFirestore.getInstance()
-    db.collection("users").document(user.uid).get()
+    db.collection("users").document(uid).get()
         .addOnSuccessListener { document ->
             if(document.exists()) {
-                val existingUser = document.toObject(User::class.java)
-                onResult(existingUser)
+                val user = document.toObject(User::class.java)
+                onResult(user)
             } else {
                 onResult(null)
             }
