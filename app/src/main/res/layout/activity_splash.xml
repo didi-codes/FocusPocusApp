@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="#E2E2F3">
+
+    <!-- Focus Pocus Title -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Focus Pocus"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:fontFamily="genos"
+        android:textColor="#000"
+        android:paddingBottom="8dp" />
+
+    <!-- Magic Hat Icon -->
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/focuspocusicon"
+        android:contentDescription="Magic Hat"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Character Image -->
+    <ImageView
+        android:layout_width="250dp"
+        android:layout_height="300dp"
+        android:src="@drawable/magician"
+        android:contentDescription="Magician"
+        android:scaleType="fitCenter"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Enter Button -->
+    <Button
+        android:id="@+id/btnEnter"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Enter"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/button_bg"/>
+
+
+</LinearLayout>

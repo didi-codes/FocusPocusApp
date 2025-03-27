@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E2E2F3">
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="24dp"
+        >
+        
+        <!-- App Title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Focus Pocus"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:shadowColor="#66000000"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="2" />
+        
+        <!-- Subtitle -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Welcome to Focus Pocus!"
+            android:textSize="16sp"
+            android:textStyle="italic"
+            android:textColor="@color/black"
+            android:layout_marginTop="4dp" />
+        
+        <!-- Profile Image -->
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/mary"
+            android:scaleType="centerCrop"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/circlebackground" />
+
+        <!-- Name -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mary Swanson"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginTop="12dp" />
+
+        <!-- Stats Box -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:layout_marginTop="20dp"
+            android:elevation="4dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Progress Meter:"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <ProgressBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:progress="70"
+                android:indeterminate="false"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_marginVertical="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Daily Streak Count: 4"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tasks Completed Today: 3"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp"/>
+        </LinearLayout>
+
+
+        <!-- Icon Grid -->
+        <GridLayout
+            android:layout_width="263dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:alignmentMode="alignMargins"
+            android:columnCount="3"
+            android:rowCount="2"
+            android:useDefaultMargins="true">
+
+
+
+            <!-- Icon 1 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:contentDescription="Progress/Rewards"
+                    android:src="@drawable/iconrewards" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Progress"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"/>
+            </LinearLayout>
+
+            <!-- Icon 2 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:contentDescription="Tasks"
+                    android:src="@drawable/icontasks" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tasks"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center" />
+            </LinearLayout>
+
+            <!--Icon 3 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:contentDescription="Nudges"
+                    android:src="@drawable/iconnudges" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nudges"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center" />
+            </LinearLayout>
+
+            <!-- Icon 4 -->
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:contentDescription="Routine Builder"
+                    android:src="@drawable/iconroutine" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Routine Builder"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center" />
+            </LinearLayout>
+
+            <!-- Icon 5 -->
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:contentDescription="Focus Insights"
+                    android:src="@drawable/iconfocus" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Focus Insights"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center" />
+            </LinearLayout>
+
+            <!-- Icon 6 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:contentDescription="Self-Care"
+                    android:src="@drawable/iconselfcare" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Self-Care"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center" />
+            </LinearLayout>
+        </GridLayout>
+
+        <!-- Bottom Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="32dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="6dp"
+                android:backgroundTint="@color/light_blue"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp"
+                android:text="Account"
+                android:textColor="@color/black" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="6dp"
+                android:backgroundTint="@color/light_blue"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp"
+                android:text="Preferences"
+                android:textColor="@color/black" />
+
+            <Button
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="6dp"
+                android:backgroundTint="@color/light_blue"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp"
+                android:text="Customize"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

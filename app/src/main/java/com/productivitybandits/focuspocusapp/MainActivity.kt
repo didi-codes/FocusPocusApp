@@ -1,31 +1,47 @@
 package com.productivitybandits.focuspocusapp
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
+import android.widget.EditText
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
+import com.productivitybandits.focuspocusapp.databinding.ActivityMainBinding
+import com.productivitybandits.focuspocusapp.viewmodel.AuthViewModel
+import com.productivitybandits.focuspocusapp.AuthViewModelFactory
+import com.productivitybandits.focuspocusapp.repository.AuthRepository
+import com.productivitybandits.focuspocusapp.utils.SessionManager
+import kotlinx.coroutines.launch
 import android.view.Menu
 import android.view.MenuItem
+import androidx.lifecycle.repeatOnLifecycle
+import android.content.Intent
 import com.google.firebase.FirebaseApp
-import com.productivitybandits.focuspocusapp.databinding.ActivityMainBinding
-import com.productivitybandits.user_authentication.registerUser
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
-
+    private lateinit var authViewModel: AuthViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (!FirebaseApp.getApps(this).isEmpty()) {
+        if (FirebaseApp.getApps(this).isEmpty()) {
             FirebaseApp.initializeApp(this)
         }
+
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -42,26 +58,16 @@ class MainActivity : AppCompatActivity() {
                 .setAnchorView(R.id.fab).show()
         }
 
-        // Example call to registerUser with static values
-        val email = "user@example.com"
-        val password = "password123"
-        val username = "buddy22"
-        val firstname = "John"
-        val lastname = "doe"
+        val navView: BottomNavigationView = binding.navView
+        navView.setupWithNavController(navController)
 
+        val sessionManager = SessionManager(this)
+        val authRepository = AuthRepository()
+        authViewModel = ViewModelProvider(
+            this,
+            AuthViewModelFactory(authRepository, sessionManager)
+        )[AuthViewModel::class.java]
 
-        // Call registerUser to register this new user
-        registerUser(
-            email, password, username, firstname, lastname
-        ) { isSuccess, result ->
-            if (isSuccess) {
-                // Handle success: user registered successfully
-                println("Registration successful! User ID: $result")
-            } else {
-                // Handle failure: something went wrong
-                println("Registration failed: $result")
-            }
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -86,5 +92,79 @@ class MainActivity : AppCompatActivity() {
                 || super.onSupportNavigateUp()
     }
 
+    // Show Login Dialog when not authenticated
+    private fun showLoginDialog() {
+        val layout = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            setPadding(60, 40, 60, 0)
+        }
 
+        val usernameInput = EditText(this).apply {
+            hint = "username"
+            inputType = android.text.InputType.TYPE_CLASS_TEXT
+            isSingleLine = true
+            background = getDrawable(R.drawable.input_background)
+            setCompoundDrawablesWithIntrinsicBounds(
+                R.drawable.ic_user,
+                0,
+                0,
+                0
+            )
+            compoundDrawablePadding = 16
+        }
+
+        val passwordInput = EditText(this).apply {
+            hint = "Password"
+            inputType = android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
+            isSingleLine = true
+            background = getDrawable(R.drawable.input_background)
+            setCompoundDrawablesWithIntrinsicBounds(
+                R.drawable.ic_lock,
+                0,
+                0,
+                0
+            )
+            compoundDrawablePadding = 16
+        }
+
+        layout.addView(usernameInput)
+        layout.addView(passwordInput)
+
+        val dialog = MaterialAlertDialogBuilder(this)
+            .setTitle("Login Required")
+            .setView(layout)
+            .setPositiveButton("Login") { _, _ ->
+                val username = usernameInput.text.toString().trim()
+                val password = passwordInput.text.toString().trim()
+
+                lifecycleScope.launch {
+                    val success = authViewModel.login(username, password)
+                    if (success) {
+                        val intent = Intent(this@MainActivity, DashboardActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        showLoginError()
+                    }
+                }
+            }
+            .setNegativeButton("Cancel") { _, _ -> }
+            .setCancelable(false)
+            .create()
+
+        dialog.window?.setBackgroundDrawableResource(R.drawable.dialog_background)
+        dialog.show()
+    }
+
+    private fun showLoginError() {
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Login Failed")
+            .setMessage("Incorrect username or password. Please try again.")
+            .setPositiveButton("OK") { _, _ ->
+                showLoginDialog()
+            }
+            .setCancelable(false)
+            .create()
+            .show()
+    }
 }
