@@ -35,6 +35,12 @@
             android:exported="true"
             android:label="Dashboard"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+        <activity
+            android:name=".NudgesActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:exported="false"/>
+
     </application>
 
 </manifest>

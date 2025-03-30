@@ -7,39 +7,43 @@
     android:background="#E2E2F3">
 
     <!-- Focus Pocus Title -->
+
+    <!-- Magic Hat Icon -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/genos_bold"
+        android:paddingBottom="8dp"
         android:text="Focus Pocus"
-        android:textSize="32sp"
-        android:textStyle="bold"
-        android:fontFamily="genos"
         android:textColor="#000"
-        android:paddingBottom="8dp" />
+        android:textSize="60sp"
+        android:textStyle="bold" />
 
-    <!-- Magic Hat Icon -->
     <ImageView
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:src="@drawable/focuspocusicon"
+        android:layout_marginBottom="5dp"
         android:contentDescription="Magic Hat"
-        android:layout_marginBottom="16dp" />
+        android:src="@drawable/focuspocusicon" />
 
     <!-- Character Image -->
+
+    <!-- Enter Button -->
     <ImageView
         android:layout_width="250dp"
         android:layout_height="300dp"
-        android:src="@drawable/magician"
+        android:layout_marginBottom="16dp"
         android:contentDescription="Magician"
         android:scaleType="fitCenter"
-        android:layout_marginBottom="16dp" />
+        android:src="@drawable/magician" />
 
-    <!-- Enter Button -->
     <Button
         android:id="@+id/btnEnter"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="Enter"
+        android:fontFamily="@font/genos_bold"
+        android:textSize="20sp"
         android:textColor="#FFFFFF"
         android:background="@drawable/button_bg"/>
 

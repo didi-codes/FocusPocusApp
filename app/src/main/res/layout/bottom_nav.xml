@@ -1,0 +1,40 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottom_nav"
+    android:layout_width="wrap_content"
+    android:layout_height="44dp"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:background="@drawable/nav_bar_bg"
+    android:padding="12dp">
+
+    <TextView
+        android:id="@+id/tab_home"
+        style="@style/BottomTab"
+        android:text="Home" />
+
+    <TextView
+        android:id="@+id/tab_tasks"
+        style="@style/BottomTab"
+        android:text="Tasks" />
+
+    <TextView
+        android:id="@+id/tab_routine"
+        style="@style/BottomTab"
+        android:text="Routine" />
+
+    <TextView
+        android:id="@+id/tab_nudges"
+        style="@style/BottomTab"
+        android:text="Nudges" />
+
+    <TextView
+        android:id="@+id/tab_insights"
+        style="@style/BottomTab"
+        android:text="Insights" />
+
+    <TextView
+        android:id="@+id/tab_selfcare"
+        style="@style/BottomTab"
+        android:text="Self-Care" />
+
+</LinearLayout>
