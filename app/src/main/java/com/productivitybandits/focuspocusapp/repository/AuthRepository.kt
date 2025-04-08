@@ -1,29 +1,47 @@
 package com.productivitybandits.focuspocusapp.repository
 
+import com.productivitybandits.focuspocusapp.RetrofitClient
+import com.productivitybandits.focuspocusapp.models.LoginRequest
+import com.productivitybandits.focuspocusapp.models.SignUpRequest
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 class AuthRepository {
 
-    // Using Stateflow for reactive authentication state
+
     private val _isAuthenticated = MutableStateFlow(false)
     val isAuthenticated: StateFlow<Boolean> = _isAuthenticated
 
-
-    // Simulate Login (replace with actual API call or database query)
-    fun login(username: String, password: String): Boolean {
-        return if (username == "test" && password == "password") {
-            _isAuthenticated.value = true
-            true
-        } else {
+    // 🔐 Login Function
+    suspend fun login(username: String, password: String): Boolean {
+        return try {
+            val response = RetrofitClient.apiService.login(LoginRequest(username, password))
+            if (response.isSuccessful) {
+                _isAuthenticated.value = true
+                true
+            } else {
+                false
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
             false
         }
-
     }
 
+    // ✨ Sign Up Function
+    suspend fun signUp(username: String, email: String, password: String): Boolean {
+        return try {
+            val request = SignUpRequest(username, email, password)
+            val response = RetrofitClient.apiService.signUpUser(request)
+            response.isSuccessful
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        }
+    }
 
-    // Simulate Logout
-    fun logout() {
+    // 🔓 Logout Function
+    suspend fun logout() {
         _isAuthenticated.value = false
 
     }
