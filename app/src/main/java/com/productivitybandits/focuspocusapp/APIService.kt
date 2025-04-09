@@ -16,10 +16,15 @@ data class SignUpResponse(val success: Boolean, val message: String)
 interface ApiService {
 
     // 🔐 LOGIN ENDPOINT
+    // Sends a POST request to /auth/login with username & password in the body.
+    // Backend should return a success/failure response.
     @POST("auth/login")
     suspend fun login(@Body request: LoginRequest): Response<Void>
 
     // ✨ SIGNUP ENDPOINT
+    // Sends a POST request to /auth/signup with username, email, and password.
+    // Backend handles creating a new user account.
     @POST("auth/signup")
     suspend fun signUpUser(@Body request: SignUpRequest): Response<Void>
 }
+

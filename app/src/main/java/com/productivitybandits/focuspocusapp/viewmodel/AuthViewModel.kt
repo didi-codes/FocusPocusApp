@@ -9,6 +9,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 
+// ViewModel that handles user login/signup logic and state management
+// Calls repository functions and manages session state
+
+
 class AuthViewModel(
 
     private val repository: AuthRepository,

@@ -21,6 +21,7 @@ class SplashActivity : AppCompatActivity() {
 
     private lateinit var sessionManager: SessionManager
 
+    // Calls login/signup API and handles response – will display toast and navigate accordingly
     private val authViewModel:AuthViewModel by viewModels {
         AuthViewModelFactory(AuthRepository(), SessionManager(this))
     }
@@ -81,6 +82,7 @@ class SplashActivity : AppCompatActivity() {
                 val password = passwordInput.text.toString().trim()
 
                 lifecycleScope.launch {
+                    // Calls login/signup API and handles response – will display toast and navigate accordingly
                     val success = authViewModel.login(username, password)
                     if (success) {
                         showToast("Login successful")
@@ -148,6 +150,7 @@ class SplashActivity : AppCompatActivity() {
                 }
 
                 lifecycleScope.launch {
+                    // Calls login/signup API and handles response – will display toast and navigate accordingly
                     val success = authViewModel.signUp(username, email, password)
                     if (success) {
                         showToast("Sign-up successful. Please log in.")
