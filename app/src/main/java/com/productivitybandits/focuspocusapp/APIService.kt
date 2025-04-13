@@ -3,9 +3,15 @@ package com.productivitybandits.focuspocusapp
 import com.productivitybandits.focuspocusapp.models.LoginRequest
 import com.productivitybandits.focuspocusapp.models.SignUpRequest
 import com.productivitybandits.focuspocusapp.models.SignUpResponse
+import com.productivitybandits.focuspocusapp.models.*
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
+import retrofit2.http.*
+import retrofit2.http.GET
+import retrofit2.http.PUT
+import retrofit2.http.DELETE
+import retrofit2.http.Path
 
 data class LoginRequest(val email: String, val password: String)
 data class LoginResponse(val token: String, val userId: String)
@@ -26,5 +32,21 @@ interface ApiService {
     // Backend handles creating a new user account.
     @POST("auth/signup")
     suspend fun signUpUser(@Body request: SignUpRequest): Response<Void>
+
+    // 📥 Fetch all nudges
+    @GET("nudges")
+    suspend fun getNudges(): Response<List<Nudge>>
+
+    // ➕ Add a new nudge
+    @POST("nudges")
+    suspend fun addNudge(@Body nudge: Nudge): Response<Nudge>
+
+    // ❌ Delete a nudge by ID
+    @DELETE("nudges/{id}")
+    suspend fun deleteNudge(@Path("id") id: String)
+
+    // ✅ Mark a nudge as completed
+    @PUT("nudges/{id}/complete")
+    suspend fun completeNudge(@Path("id") id: String): Response<Nudge>
 }
 

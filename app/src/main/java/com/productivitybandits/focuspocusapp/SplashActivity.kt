@@ -150,7 +150,8 @@ class SplashActivity : AppCompatActivity() {
                 }
 
                 lifecycleScope.launch {
-                    // Calls login/signup API and handles response – will display toast and navigate accordingly
+                    // Calls login/signup API and handles response
+                    // – will display toast and navigate accordingly
                     val success = authViewModel.signUp(username, email, password)
                     if (success) {
                         showToast("Sign-up successful. Please log in.")
