@@ -1,0 +1,26 @@
+package com.productivitybandits.focuspocusapp
+
+import android.content.Context
+import com.productivitybandits.focuspocusapp.repository.AuthRepository
+import com.productivitybandits.focuspocusapp.utils.SessionManager
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.productivitybandits.focuspocusapp.viewmodel.AuthViewModel
+
+class AuthViewModelFactory(
+    private val repository: AuthRepository,
+    private val sessionManager: SessionManager
+) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(AuthViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return AuthViewModel(repository, sessionManager) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+
+    }
+}
+
+// Factory used to inject AuthRepository and SessionManager into AuthViewModel
+// Ensures ViewModel has necessary dependencies for login/signup API calls
+

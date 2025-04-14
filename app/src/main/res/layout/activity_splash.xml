@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="#E2E2F3">
+
+    <!-- Focus Pocus Title -->
+
+    <!-- Magic Hat Icon -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/genos_bold"
+        android:paddingBottom="8dp"
+        android:text="Focus Pocus"
+        android:textColor="#000"
+        android:textSize="60sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginBottom="5dp"
+        android:contentDescription="Magic Hat"
+        android:src="@drawable/focuspocusicon" />
+
+    <!-- Character Image -->
+
+    <!-- Enter Button -->
+    <ImageView
+        android:layout_width="250dp"
+        android:layout_height="300dp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="Magician"
+        android:scaleType="fitCenter"
+        android:src="@drawable/magician" />
+
+    <Button
+        android:id="@+id/btnEnter"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Enter"
+        android:fontFamily="@font/genos_bold"
+        android:textSize="20sp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/button_bg"/>
+
+
+</LinearLayout>
