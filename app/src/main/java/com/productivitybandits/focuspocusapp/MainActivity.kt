@@ -3,13 +3,13 @@ package com.productivitybandits.focuspocusapp
 import android.app.Application
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.EditText
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -19,11 +19,13 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.productivitybandits.focuspocusapp.databinding.ActivityMainBinding
+import com.productivitybandits.focuspocusapp.viewmodel.AuthViewModel
 import com.productivitybandits.focuspocusapp.repository.AuthRepository
 import com.productivitybandits.focuspocusapp.utils.SessionManager
 import com.productivitybandits.focuspocusapp.viewmodel.AuthViewModelFactory
-import com.productivitybandits.focuspocusapp.viewmodel.AuthViewModel
 import kotlinx.coroutines.launch
+import android.view.Menu
+import android.view.MenuItem
 import com.google.firebase.FirebaseApp
 
 class MyApp : Application() {
@@ -32,6 +34,7 @@ class MyApp : Application() {
         FirebaseApp.initializeApp(this)
     }
 }
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -90,6 +93,7 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
     }
+
 
     // Show Login Dialog when not authenticated
     private fun showLoginDialog() {
@@ -167,5 +171,3 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 }
-
-

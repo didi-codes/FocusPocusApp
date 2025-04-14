@@ -74,8 +74,16 @@ dependencies {
     implementation(libs.firebase.auth.ktx)
     implementation ("com.google.firebase:firebase-appcheck:17.0.1")
     implementation (libs.firebase.appcheck.interop)
+    implementation(libs.firebase.common.ktx)
+    implementation(libs.protolite.well.known.types)
+    implementation("com.google.firebase:firebase-analytics:21.3.0")
+    implementation(libs.firebase.firestore.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
+    implementation("com.airbnb.android:lottie:6.1.0")
 }
 

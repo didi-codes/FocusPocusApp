@@ -2,17 +2,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@drawable/focuspocusicon"
+        android:icon="@mipmap/ic_launcher"
         android:name=".MyApp"
-        android:label="FocusPocus"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.FocusPocusApp"
         tools:targetApi="31">
+
+        <!-- SplashActivity as Launcher -->
         <activity
             android:name=".SplashActivity"
             android:exported="true"
@@ -36,6 +38,12 @@
             android:exported="true"
             android:label="Dashboard"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+        <activity
+            android:name=".NudgesActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:exported="false"/>
+
     </application>
 
 </manifest>

@@ -18,3 +18,7 @@ class AuthViewModelFactory(
 
     }
 }
+
+// Factory used to inject AuthRepository and SessionManager into AuthViewModel
+// Ensures ViewModel has necessary dependencies for login/signup API calls
+
