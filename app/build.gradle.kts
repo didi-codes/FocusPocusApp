@@ -78,5 +78,4 @@ dependencies {
     implementation("com.airbnb.android:lottie:6.1.0")
 }
 
-}
 
