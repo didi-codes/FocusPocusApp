@@ -43,4 +43,21 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+    <string name="mary_swanson">Mary Swanson</string>
+    <string name="progress_rewards">Progress/Rewards</string>
+    <string name="tasks">Tasks</string>
+    <string name="nudges">Nudges</string>
+    <string name="routine_builder">Routine Builder</string>
+    <string name="focus_insights">Focus Insights</string>
+    <string name="self_care">Self-Care</string>
+    <string name="account">Account</string>
+    <string name="preferences">Preferences</string>
+    <string name="customize">Customize</string>
+    <string name="todo">TODO</string>
+    <string name="focus_pocus">Focus Pocus</string>
+    <string name="welcome_to_focus_pocus">Welcome to Focus Pocus!</string>
+    <string name="progress_meter">Progress Meter:</string>
+    <string name="daily_streak_count_4">Daily Streak Count: 4</string>
+    <string name="tasks_completed_today_3">Tasks Completed Today: 3</string>
+    <string name="progress">Progress</string>
 </resources>

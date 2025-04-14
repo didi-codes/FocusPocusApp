@@ -11,7 +11,11 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import android.widget.Toast
 import com.productivitybandits.focuspocusapp.utils.SessionManager
 import android.util.Log
+import com.google.firebase.FirebaseApp
+import com.productivitybandits.user_authentication.loginUser
+import com.productivitybandits.user_authentication.registerUser
 
+@Suppress("DEPRECATION")
 class SplashActivity : AppCompatActivity() {
 
     private lateinit var sessionManager: SessionManager
@@ -19,6 +23,7 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        FirebaseApp.initializeApp(this)
 
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -53,6 +58,7 @@ class SplashActivity : AppCompatActivity() {
 
     private fun showLoginDialog() {
         Log.d("SplashDebug", "Login dialog show not show")
+
         val layout = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
             setPadding(60, 40, 60, 0)
@@ -66,14 +72,13 @@ class SplashActivity : AppCompatActivity() {
 
         val passwordInput = EditText(this).apply {
             hint = "Password"
-            inputType = android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
+            inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
             isSingleLine = true
         }
 
         layout.addView(usernameInput)
         layout.addView(passwordInput)
 
-        val sessionManager = SessionManager(this)
 
         MaterialAlertDialogBuilder(this)
             .setTitle("Login Required")
@@ -82,12 +87,15 @@ class SplashActivity : AppCompatActivity() {
                 val username = usernameInput.text.toString().trim()
                 val password = passwordInput.text.toString().trim()
 
-                if (username.isNotEmpty() && password.isNotEmpty() &&
-                    sessionManager.validateUser(username, password)) {
-                    sessionManager.saveLoginState(true)
-                    startActivity(Intent(this, DashboardActivity::class.java))
-                    finish()
+                if (username != "" && password != "") {
+                    loginUser(username, password) {
+                            showToast("Login successful! Navigating to Dashboard...")
+                            val intent = Intent(this, DashboardActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                    }
                 } else {
+                    showToast("Please input email and password to login")
                     showErrorDialog()
                 }
             }
@@ -99,6 +107,7 @@ class SplashActivity : AppCompatActivity() {
             .create()
             .show()
     }
+
 
     private fun showSignUpDialog() {
         val layout = LinearLayout(this).apply {
@@ -135,8 +144,6 @@ class SplashActivity : AppCompatActivity() {
         layout.addView(passwordInput)
         layout.addView(confirmPasswordInput)
 
-        val sessionManager = SessionManager(this)
-
         MaterialAlertDialogBuilder(this)
             .setTitle("Sign Up")
             .setView(layout)
@@ -157,15 +164,20 @@ class SplashActivity : AppCompatActivity() {
                         showToast("Username already exists!")
 
                     else -> {
-                        if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                            showToast("Enter a valid email address!")
-                            return@setPositiveButton
+                        registerUser(email, password, username, "", "") { success, message ->
+                            if (success) {
+                                // On successful registration, store the username and email
+                                val sessionManager = SessionManager(this)
+                                sessionManager.saveUser(username, password) // Save user data
+                                sessionManager.saveEmail(email) // Save email
+                                showToast("Sign-up successful! Navigating to Dashboard...")
+                                val intent = Intent(this, DashboardActivity::class.java)
+                                startActivity(intent)
+                                finish()  // Close the SplashActivity
+                            } else {
+                                showToast("Sign-up failed: $message")
+                            }
                         }
-
-                        sessionManager.saveUser(username, password)// Store new user
-                        sessionManager.saveEmail(email) // Saves email
-                        showToast("Sign-up successful! Please log in.")
-                        showLoginDialog()
                     }
                 }
             }

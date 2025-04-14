@@ -1,17 +1,15 @@
-import com.android.manifmerger.Actions.load
 import java.util.Properties
 
 val localProperties = Properties().apply {
     load(File(rootProject.rootDir, "local.properties").inputStream())
 }
 
-val firebaseApiKey = localProperties.getProperty("FIREBASE_API_KEY")
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("com.google.gms.google-services")
 }
+
 
 android {
     namespace = "com.productivitybandits.focuspocusapp"
@@ -64,13 +62,20 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+    implementation (libs.androidx.cardview)
     implementation(libs.firebase.common.ktx)
     implementation(libs.protolite.well.known.types)
-    implementation("com.google.firebase:firebase-analytics:21.3.0")
+    implementation(libs.firebase.analytics)
+    implementation(libs.google.firebase.auth)
+    implementation(libs.firebase.database)
+    implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
     implementation(libs.firebase.firestore.ktx)
     implementation(libs.google.firebase.firestore.ktx)
     implementation(libs.firebase.auth.ktx)
+    implementation ("com.google.firebase:firebase-appcheck:17.0.1")
+    implementation (libs.firebase.appcheck.interop)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }
+
