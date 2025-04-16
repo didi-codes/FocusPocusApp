@@ -7,7 +7,6 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.productivitybandits.taskmanager.T
 
 
 class DashboardActivity : AppCompatActivity() {
