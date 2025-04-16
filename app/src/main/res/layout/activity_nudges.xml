@@ -28,7 +28,7 @@
         android:paddingBottom="12dp"
         android:fontFamily="@font/genos_bold12"/>
 
-<!-- Horizontal Row: Settings & Add Buttons -->
+    <!-- Horizontal Row: Settings & Add Buttons -->
     <LinearLayout
 
         android:layout_width="match_parent"
