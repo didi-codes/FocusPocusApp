@@ -44,8 +44,6 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="false"/>
 
-        <activity android:name=".TasksActivity"/>
-
     </application>
 
 </manifest>

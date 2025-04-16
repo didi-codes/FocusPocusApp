@@ -120,7 +120,6 @@
 
             <!-- TASKS ICON -->
             <LinearLayout
-                android:id="@+id/tasksIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
@@ -285,7 +284,6 @@
             <!-- ACCOUNT BUTTON -->
 
             <Button
-                android:id="@+id/accountButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="6dp"
@@ -300,49 +298,30 @@
             <!-- PREFERENCES BUTTON -->
 
             <Button
-                android:id="@+id/accountPreferences"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="4dp"
-                android:layout_weight="1"
+                android:layout_marginHorizontal="6dp"
                 android:background="@drawable/glow_button"
                 android:fontFamily="@font/genos_bold"
-                android:padding="8dp"
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="8dp"
                 android:text="Preferences"
                 android:textColor="@color/black"
-                android:textSize="9sp" />
+                android:textSize="13sp" />
 
 
             <!-- CUSTOMIZE BUTTON -->
             <Button
-                android:id="@+id/accountCustomize"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="4dp"
-                android:layout_weight="1"
+                android:layout_marginHorizontal="6dp"
                 android:background="@drawable/glow_button"
                 android:fontFamily="@font/genos_bold"
-                android:padding="8dp"
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="8dp"
                 android:text="Customize"
                 android:textColor="@color/black"
-                android:textSize="12sp" />
-
-            <Button
-                android:id="@+id/accountLogout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="4dp"
-                android:layout_weight="1"
-                android:background="@drawable/glow_button"
-                android:fontFamily="@font/genos_bold"
-                android:padding="8dp"
-                android:text="Logout"
-                android:textColor="@color/black"
-                android:textSize="13sp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
     </LinearLayout>
