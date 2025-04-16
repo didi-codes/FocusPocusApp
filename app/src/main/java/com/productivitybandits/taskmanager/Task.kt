@@ -1,14 +1,13 @@
 package com.productivitybandits.taskmanager
 
-import java.time.LocalDate
-import java.time.LocalTime
+import com.google.type.Date
 
-data class Task(
-    val title: String = "",
-    val description: String = "",
+data class Task<Time>(
+    val title: String="",
+    val description: String="",
     val progress: String = "Pending",
-    val streakNumber: Int = 0,
-    val dueDate: LocalDate? = null,
-    val dueTime: LocalTime? = null,
+    val streakNumber: Int=0,
+    val dueDate: Date? = null,
+    val dueTime: Time? = null,
     val user: String = ""
 )

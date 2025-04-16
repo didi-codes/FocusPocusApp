@@ -15,45 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDNjcb7bm_tgGxu917GOqwmAxTri4QMIxo"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:55147572492:android:a8e9188e41c2cb8bb9ed29",
-        "android_client_info": {
-          "package_name": "com.productivitybandits.focuspocus"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDNjcb7bm_tgGxu917GOqwmAxTri4QMIxo"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:55147572492:android:23602c693e127c1eb9ed29",
-        "android_client_info": {
-          "package_name": "com.productivitybandits.focuspocusapp"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDNjcb7bm_tgGxu917GOqwmAxTri4QMIxo"
+          "current_key":"${FIREBASE_API_KEY}"
         }
       ],
       "services": {

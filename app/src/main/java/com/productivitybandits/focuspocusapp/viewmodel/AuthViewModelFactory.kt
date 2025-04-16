@@ -1,9 +1,11 @@
-package com.productivitybandits.focuspocusapp.viewmodel
+package com.productivitybandits.focuspocusapp
 
+import android.content.Context
 import com.productivitybandits.focuspocusapp.repository.AuthRepository
 import com.productivitybandits.focuspocusapp.utils.SessionManager
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.productivitybandits.focuspocusapp.viewmodel.AuthViewModel
 
 class AuthViewModelFactory(
     private val repository: AuthRepository,

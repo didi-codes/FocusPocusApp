@@ -5,8 +5,11 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
+import android.view.View
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+
 
 
 class DashboardActivity : AppCompatActivity() {
@@ -19,47 +22,53 @@ class DashboardActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-        fun openNudges() {
-            val intent = Intent(this, NudgesActivity::class.java)
-            startActivity(intent)
-        }
-
         // Nudges icon
         val nudgesIcon: ImageView = findViewById(R.id.nudgesIcon)
         nudgesIcon.setOnClickListener {
-            openNudges()
+            openNudges(it)
         }
 
-        // Logout Functionality
-        fun logoutUser() {
+        // Tasks icon -> open TasksActivity
+        val tasksIcon: LinearLayout = findViewById(R.id.tasksIcon)
+        tasksIcon.setOnClickListener {
+            openTasks(it)
+        }
+
+        // ☑️  Logout Button
+        val logoutButton: Button = findViewById(R.id.accountLogout)
+        logoutButton.setOnClickListener {
             auth.signOut()
             Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, SplashActivity::class.java) // change this to your actual login screen
+            val intent = Intent(this, SplashActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
             finish()
         }
-        val logoutButton: Button = findViewById(R.id.accountLogout)
-        logoutButton.setOnClickListener {
-            logoutUser()
+
+        // ✅ Account Buttons
+        findViewById<Button>(R.id.accountButton).setOnClickListener {
+            Toast.makeText(this, "Account Clicked", Toast. LENGTH_SHORT).show()
         }
 
-        val accountButton: Button = findViewById(R.id.accountButton)
-        accountButton.setOnClickListener {
-            Toast.makeText(this, "Account Clicked", Toast.LENGTH_SHORT).show()
-        }
-
-        val preferencesButton: Button = findViewById(R.id.accountPreferences)
-        preferencesButton.setOnClickListener {
+        findViewById<Button>(R.id.accountPreferences). setOnClickListener {
             Toast.makeText(this, "Preferences Clicked", Toast.LENGTH_SHORT).show()
         }
 
-        val customizeButton: Button = findViewById(R.id.accountCustomize)
-        customizeButton.setOnClickListener {
+        findViewById<Button>(R.id.accountCustomize).setOnClickListener {
             Toast.makeText(this, "Customize Clicked", Toast.LENGTH_SHORT).show()
         }
+    }
 
 
+    // 🧭 Opens Nudges Screen
+    fun openNudges(view: View) {
+        val intent = Intent(this, NudgesActivity::class.java)
+        startActivity(intent)
+    }
+
+    // 🧭 Opens Tasks screen
+    fun openTasks(view: View) {
+        val intent = Intent(this, TasksActivity::class.java)
+        startActivity(intent)
     }
 }
-
