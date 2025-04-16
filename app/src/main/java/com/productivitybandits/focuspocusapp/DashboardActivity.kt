@@ -66,7 +66,7 @@ class DashboardActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    // 🧭 Opens Tasks screen
+    // 🧭 Opens Tasks screen - Updating the task screen
     fun openTasks(view: View) {
         val intent = Intent(this, TasksActivity::class.java)
         startActivity(intent)
