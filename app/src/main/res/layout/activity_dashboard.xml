@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/futuristic_background">
+    android:background="#E2E2F3">
     
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,10 +18,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Focus Pocus"
-            android:textSize="42sp"
+            android:textSize="28sp"
             android:textStyle="bold"
             android:textColor="@color/black"
-            android:fontFamily="@font/genos_bold12"
             android:shadowColor="#66000000"
             android:shadowDx="1"
             android:shadowDy="1"
@@ -31,9 +30,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="WELCOME !"
-            android:textSize="20sp"
-            android:fontFamily="@font/genos_semibold12"
+            android:text="Welcome to Focus Pocus!"
+            android:textSize="16sp"
             android:textStyle="italic"
             android:textColor="@color/black"
             android:layout_marginTop="4dp" />
@@ -52,8 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mary Swanson"
-            android:textSize="28sp"
-            android:fontFamily="@font/genos_bold12"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:layout_marginTop="12dp" />
@@ -116,11 +113,9 @@
             android:useDefaultMargins="true">
 
 
-            <!-- PROGRESS AND REWARDS ICON -->
 
-            <!-- TASKS ICON -->
+            <!-- Icon 1 -->
             <LinearLayout
-                android:id="@+id/tasksIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
@@ -285,7 +280,6 @@
             <!-- ACCOUNT BUTTON -->
 
             <Button
-                android:id="@+id/accountButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="6dp"
@@ -294,55 +288,54 @@
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="8dp"
                 android:text="Account"
+                android:id="@+id/accountButton"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 
             <!-- PREFERENCES BUTTON -->
 
             <Button
-                android:id="@+id/accountPreferences"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="4dp"
-                android:layout_weight="1"
+                android:layout_marginHorizontal="6dp"
                 android:background="@drawable/glow_button"
                 android:fontFamily="@font/genos_bold"
-                android:padding="8dp"
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="8dp"
                 android:text="Preferences"
+                android:id="@+id/accountPreferences"
                 android:textColor="@color/black"
-                android:textSize="9sp" />
+                android:textSize="13sp" />
 
 
             <!-- CUSTOMIZE BUTTON -->
             <Button
-                android:id="@+id/accountCustomize"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="4dp"
-                android:layout_weight="1"
+                android:layout_marginHorizontal="6dp"
                 android:background="@drawable/glow_button"
                 android:fontFamily="@font/genos_bold"
-                android:padding="8dp"
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="8dp"
                 android:text="Customize"
+                android:id="@+id/accountCustomize"
                 android:textColor="@color/black"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
+
+            <!-- LOGOUT BUTTON -->
             <Button
-                android:id="@+id/accountLogout"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="4dp"
-                android:layout_weight="1"
+                android:layout_marginHorizontal="6dp"
                 android:background="@drawable/glow_button"
                 android:fontFamily="@font/genos_bold"
-                android:padding="8dp"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp"
                 android:text="Logout"
+                android:id="@+id/accountLogout"
                 android:textColor="@color/black"
-                android:textSize="13sp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
     </LinearLayout>
