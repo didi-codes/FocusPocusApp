@@ -17,41 +17,58 @@ fun registerUser(
     val auth = FirebaseAuth.getInstance()
     val db = FirebaseFirestore.getInstance()
 
-    auth.createUserWithEmailAndPassword(email, password)
-        .addOnCompleteListener { task ->
-            if (!task.isSuccessful) {
-                Log.e("FirebaseAuth", "Registration failed: ${task.exception?.message}")
-                onResult(false, task.exception?.message ?: "Unknown error")
-                return@addOnCompleteListener
+    db.collection("users").whereEqualTo("email", email).get()
+        .addOnSuccessListener { emailResult ->
+            if (!emailResult.isEmpty) {
+                onResult(false, "An account with this email already exists.")
+                return@addOnSuccessListener
             }
 
-            val uid = task.result?.user?.uid
-            if (uid == null) {
-                Log.e("FirebaseAuth", "UID is null")
-                onResult(false, "UID is null")
-                return@addOnCompleteListener
-            }
+            db.collection("users").whereEqualTo("username", username).get()
+                .addOnSuccessListener { usernameResult ->
+                    if (!usernameResult.isEmpty) {
+                        onResult(false, "Username is already taken.")
+                        return@addOnSuccessListener
+                    }
 
-            val user = User(
-                uid = uid,
-                email = email,
-                username = username,
-                firstName = "",
-                lastName = ""
-            )
+                    auth.createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener { task ->
+                            if (!task.isSuccessful) {
+                                onResult(false, task.exception?.message ?: "Registration failed.")
+                                return@addOnCompleteListener
+                            }
 
-            db.collection("users").document(uid).set(user)
-                .addOnSuccessListener {
-                    Log.d("FirebaseAuth", "User registered and stored in Firestore.")
-                    onResult(true, uid)
+                            val uid = task.result?.user?.uid
+                            if (uid == null) {
+                                onResult(false, "Registration failed: UID is null.")
+                                return@addOnCompleteListener
+                            }
+
+                            val user = User(
+                                uid = uid,
+                                email = email,
+                                username = username,
+                                firstName = firstName ?: "",
+                                lastName = lastName ?: ""
+                            )
+
+                            db.collection("users").document(uid).set(user)
+                                .addOnSuccessListener {
+                                    onResult(true, null) // ✅ Don't pass UID as a message
+                                }
+                                .addOnFailureListener { e ->
+                                    onResult(false, "Error saving user data: ${e.message}")
+                                }
+                        }
                 }
                 .addOnFailureListener { e ->
-                    Log.e("FirebaseAuth", "Error storing user data", e)
-                    onResult(false, e.message)
+                    onResult(false, "Error checking username: ${e.message}")
                 }
         }
+        .addOnFailureListener { e ->
+            onResult(false, "Error checking email: ${e.message}")
+        }
 }
-
 
 
 

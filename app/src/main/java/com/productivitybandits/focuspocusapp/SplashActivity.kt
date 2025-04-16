@@ -1,25 +1,26 @@
 package com.productivitybandits.focuspocusapp
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputType
+import android.view.MotionEvent
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.lifecycle.lifecycleScope
-import com.productivitybandits.focuspocusapp.repository.AuthRepository
-import com.productivitybandits.focuspocusapp.utils.SessionManager
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.FirebaseApp
-import com.productivitybandits.user_authentication.loginUser
-import com.productivitybandits.user_authentication.registerUser
+import com.productivitybandits.focuspocusapp.repository.AuthRepository
+import com.productivitybandits.focuspocusapp.utils.SessionManager
 import com.productivitybandits.focuspocusapp.viewmodel.AuthViewModel
 import com.productivitybandits.focuspocusapp.viewmodel.AuthViewModelFactory
-import kotlinx.coroutines.launch
+import com.productivitybandits.user_authentication.loginUser
+import com.productivitybandits.user_authentication.registerUser
 
 class SplashActivity : AppCompatActivity() {
 
@@ -86,7 +87,7 @@ class SplashActivity : AppCompatActivity() {
                 val username = usernameInput.text.toString().trim()
                 val password = passwordInput.text.toString().trim()
 
-                if (username != "" && password != "") {
+                if (username.isNotBlank() && password.isNotBlank()) {
                     loginUser(username, password) {
                         showToast("Login successful! Navigating to Dashboard...")
                         val intent = Intent(this, DashboardActivity::class.java)
@@ -94,7 +95,7 @@ class SplashActivity : AppCompatActivity() {
                         finish()
                     }
                 } else {
-                    showToast("Login failed. Try again.")
+                    showToast("Please Enter Both Username and Password")
                 }
             }
             .setNegativeButton("Cancel", null)
@@ -104,7 +105,37 @@ class SplashActivity : AppCompatActivity() {
             .create()
             .show()
     }
+    private fun setupPasswordToggle(editText: EditText, context: Context) {
+        var isPasswordVisible = false
+        val eyeOpen = ContextCompat.getDrawable(context, R.drawable.visibility)
+        val eyeClosed = ContextCompat.getDrawable(context, R.drawable.visibility_off)
 
+        editText.setCompoundDrawablesWithIntrinsicBounds(null, null, eyeClosed, null)
+        editText.setOnTouchListener { v, event ->
+            if (event.action == MotionEvent.ACTION_UP) {
+                val drawableEnd = 2
+                val drawable = editText.compoundDrawables[drawableEnd]
+                if (drawable != null && event.rawX >= (editText.right - drawable.bounds.width())) {
+                    isPasswordVisible = !isPasswordVisible
+                    editText.inputType = if (isPasswordVisible)
+                        InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                    else
+                        InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                    editText.setCompoundDrawablesWithIntrinsicBounds(
+                        null,
+                        null,
+                        if (isPasswordVisible) eyeOpen else eyeClosed,
+                        null
+                    )
+
+                    // Keep cursor at end
+                    editText.setSelection(editText.text.length)
+                    return@setOnTouchListener true
+                }
+            }
+            false
+        }
+    }
     private fun showSignUpDialog() {
         val layout = LinearLayout(this).apply {
             orientation = LinearLayout.VERTICAL
@@ -121,19 +152,21 @@ class SplashActivity : AppCompatActivity() {
 
         val passwordInput = EditText(this).apply {
             hint = "Password"
-            inputType = android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
+            inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
         }
 
         val confirmPasswordInput = EditText(this).apply {
             hint = "Confirm Password"
-            inputType = android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
+            inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
         }
+
+        setupPasswordToggle(passwordInput, this)
+        setupPasswordToggle(confirmPasswordInput, this)
 
         layout.addView(usernameInput)
         layout.addView(emailInput)
         layout.addView(passwordInput)
         layout.addView(confirmPasswordInput)
-
 
         MaterialAlertDialogBuilder(this)
             .setTitle("Sign Up")
@@ -145,37 +178,35 @@ class SplashActivity : AppCompatActivity() {
                 val confirmPassword = confirmPasswordInput.text.toString().trim()
 
                 when {
-                    username.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() ->
+                    username.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty() -> {
                         showToast("All fields are required!")
+                        return@setPositiveButton
+                    }
 
-                    password != confirmPassword ->
+                    password != confirmPassword -> {
                         showToast("Passwords do not match!")
+                        return@setPositiveButton
+                    }
+
+                    !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches() -> {
+                        showToast("Enter a valid email address!")
+                        return@setPositiveButton
+                    }
 
                     else -> {
-                        if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                            showToast("Enter a valid email address!")
-                            return@setPositiveButton
-                        }
-
                         registerUser(email, password, username, "", "") { success, message ->
                             if (success) {
-                                // On successful registration, store the username and email
                                 val sessionManager = SessionManager(this)
-                                sessionManager.saveUser(username, password) // Save user data
-                                sessionManager.saveEmail(email) // Save email
+                                sessionManager.saveUser(username, password)
+                                sessionManager.saveEmail(email)
                                 showToast("Sign-up successful! Navigating to Dashboard...")
                                 val intent = Intent(this, DashboardActivity::class.java)
                                 startActivity(intent)
-                                finish()  // Close the SplashActivity
+                                finish()
                             } else {
                                 showToast("Sign-up failed: $message")
                             }
                         }
-
-                        sessionManager.saveUser(username, password)// Store new user
-                        sessionManager.saveEmail(email) // Saves email
-                        showToast("Sign-up successful! Please log in.")
-                        showLoginDialog()
                     }
                 }
             }
@@ -184,6 +215,7 @@ class SplashActivity : AppCompatActivity() {
             .create()
             .show()
     }
+
 
 
     private fun showToast(message: String) {
