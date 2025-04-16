@@ -1,5 +1,6 @@
 package com.productivitybandits.focuspocusapp
 
+import android.app.Application
 import android.os.Bundle
 import android.widget.EditText
 import android.widget.LinearLayout
@@ -24,9 +25,14 @@ import com.productivitybandits.focuspocusapp.utils.SessionManager
 import kotlinx.coroutines.launch
 import android.view.Menu
 import android.view.MenuItem
+
 import androidx.lifecycle.repeatOnLifecycle
 import android.content.Intent
 
+
+
+import com.productivitybandits.focuspocusapp.databinding.ActivityMainBinding
+import com.google.firebase.FirebaseApp
 
 
 class MainActivity : AppCompatActivity() {
@@ -86,6 +92,7 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
     }
+
 
     // Show Login Dialog when not authenticated
     private fun showLoginDialog() {
@@ -163,3 +170,12 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 }
+
+    class MyApp : Application() {
+        override fun onCreate() {
+            super.onCreate()
+            FirebaseApp.initializeApp(this)
+        }
+    }
+}
+
