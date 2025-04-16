@@ -4,6 +4,7 @@ import com.productivitybandits.focuspocusapp.models.LoginRequest
 import com.productivitybandits.focuspocusapp.models.SignUpRequest
 import com.productivitybandits.focuspocusapp.models.SignUpResponse
 import com.productivitybandits.focuspocusapp.models.*
+import com.productivitybandits.focuspocusapp.models.Task
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
@@ -48,5 +49,21 @@ interface ApiService {
     // ✅ Mark a nudge as completed
     @PUT("nudges/{id}/complete")
     suspend fun completeNudge(@Path("id") id: String): Response<Nudge>
+
+    // 📥 Fetch all tasks
+    @GET("tasks")
+    suspend fun getTasks(): Response<List<Task>>
+
+    // ➕ Add a new task
+    @POST("tasks")
+    suspend fun addTask(@Body task: Task): Response<Task>
+
+    // ❌ Delete a task
+    @DELETE("tasks/{id}")
+    suspend fun deleteTask(@Path("id") id: String)
+
+    // ✅ Mark a task as completed
+    @PUT("tasks/{id}/complete")
+    suspend fun completeTask(@Path("id") id: String): Response<Task>
 }
 

@@ -120,6 +120,7 @@
 
             <!-- TASKS ICON -->
             <LinearLayout
+                android:id="@+id/tasksIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
