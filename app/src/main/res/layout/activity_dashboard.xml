@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E2E2F3">
-    
+    android:background="@drawable/futuristic_background">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -12,30 +12,32 @@
         android:gravity="center_horizontal"
         android:padding="24dp"
         >
-        
+
         <!-- App Title -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Focus Pocus"
-            android:textSize="28sp"
+            android:textSize="42sp"
             android:textStyle="bold"
             android:textColor="@color/black"
+            android:fontFamily="@font/genos_bold12"
             android:shadowColor="#66000000"
             android:shadowDx="1"
             android:shadowDy="1"
             android:shadowRadius="2" />
-        
+
         <!-- Subtitle -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Welcome to Focus Pocus!"
-            android:textSize="16sp"
+            android:text="WELCOME !"
+            android:textSize="20sp"
+            android:fontFamily="@font/genos_semibold12"
             android:textStyle="italic"
             android:textColor="@color/black"
             android:layout_marginTop="4dp" />
-        
+
         <!-- Profile Image -->
         <ImageView
             android:layout_width="150dp"
@@ -50,7 +52,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mary Swanson"
-            android:textSize="20sp"
+            android:textSize="28sp"
+            android:fontFamily="@font/genos_bold12"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:layout_marginTop="12dp" />
@@ -113,9 +116,11 @@
             android:useDefaultMargins="true">
 
 
+            <!-- PROGRESS AND REWARDS ICON -->
 
-            <!-- Icon 1 -->
+            <!-- TASKS ICON -->
             <LinearLayout
+                android:id="@+id/tasksIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
@@ -321,7 +326,6 @@
                 android:id="@+id/accountCustomize"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
-
 
             <!-- LOGOUT BUTTON -->
             <Button
