@@ -12,7 +12,7 @@ import com.productivitybandits.focuspocusapp.models.Task
 class TaskAdapter(private var tasks: List<Task>) :
     RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
 
-    // 🔁 ViewHolder holds the views for each task card
+    // 🔁 ViewHolder holds the views for each task card - update
     class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val titleText: TextView = itemView.findViewById(R.id.task_title)
         val timeText: TextView = itemView.findViewById(R.id.task_time)

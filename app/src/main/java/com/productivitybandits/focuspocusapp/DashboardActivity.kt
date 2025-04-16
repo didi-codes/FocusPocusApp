@@ -60,7 +60,7 @@ class DashboardActivity : AppCompatActivity() {
     }
 
 
-    // 🧭 Opens Nudges Screen
+    // 🧭 Opens Nudges Screen - Updating the Nudges Screen
     fun openNudges(view: View) {
         val intent = Intent(this, NudgesActivity::class.java)
         startActivity(intent)
