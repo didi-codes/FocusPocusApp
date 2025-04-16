@@ -1,6 +1,7 @@
 package com.productivitybandits.focuspocusapp
 
 import android.app.Application
+import android.content.Intent
 import android.os.Bundle
 import android.widget.EditText
 import android.widget.LinearLayout
@@ -19,20 +20,20 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.productivitybandits.focuspocusapp.databinding.ActivityMainBinding
 import com.productivitybandits.focuspocusapp.viewmodel.AuthViewModel
-import com.productivitybandits.focuspocusapp.AuthViewModelFactory
 import com.productivitybandits.focuspocusapp.repository.AuthRepository
 import com.productivitybandits.focuspocusapp.utils.SessionManager
+import com.productivitybandits.focuspocusapp.viewmodel.AuthViewModelFactory
 import kotlinx.coroutines.launch
 import android.view.Menu
 import android.view.MenuItem
-
-import androidx.lifecycle.repeatOnLifecycle
-import android.content.Intent
-
-
-
-import com.productivitybandits.focuspocusapp.databinding.ActivityMainBinding
 import com.google.firebase.FirebaseApp
+
+class MyApp : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        FirebaseApp.initializeApp(this)
+    }
+}
 
 
 class MainActivity : AppCompatActivity() {
@@ -170,12 +171,3 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 }
-
-    class MyApp : Application() {
-        override fun onCreate() {
-            super.onCreate()
-            FirebaseApp.initializeApp(this)
-        }
-    }
-}
-

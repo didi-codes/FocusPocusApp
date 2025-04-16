@@ -54,4 +54,3 @@ Focus Pocus operates in the background and uses intelligent reminders, contextua
 ## 📁 Project Status
 
 🟢 **Actively developing** – this branch contains key UI and interaction features under development by me.
-
