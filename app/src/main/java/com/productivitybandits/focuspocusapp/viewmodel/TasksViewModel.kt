@@ -1,7 +1,9 @@
 package com.productivitybandits.focuspocusapp.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.firestore.FirebaseFirestore
 import com.productivitybandits.focuspocusapp.models.Task
 import com.productivitybandits.focuspocusapp.repository.TasksRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,15 +16,26 @@ class TasksViewModel(private val repository: TasksRepository) : ViewModel() {
     private val _tasks = MutableStateFlow<List<Task>>(emptyList())
     val tasks: StateFlow<List<Task>> = _tasks
 
-    fun fetchTasks() {
-        viewModelScope.launch {
-            try {
-                _tasks.value = repository.getTasks()
-            } catch (e: Exception) {
-                e.printStackTrace()
+    fun fetchTasks(userId: String) {
+        val db = FirebaseFirestore.getInstance()
+
+        // Reference to the user's 'tasks' subcollection
+        db.collection("users")
+            .document(userId) // The specific user document
+            .collection("tasks") // The tasks subcollection
+            .get()
+            .addOnSuccessListener { result ->
+                // Loop through each task document in the tasks subcollection
+                for (document in result) {
+                    val task = document.toObject(com.productivitybandits.taskmanager.Task::class.java)
+                    Log.d("Firestore", "${task.title} - ${task.progress}")
+                }
             }
-        }
+            .addOnFailureListener { e ->
+                Log.w("Firestore", "Error getting tasks", e)
+            }
     }
+
 
     fun addTask(task: Task) {
         viewModelScope.launch {

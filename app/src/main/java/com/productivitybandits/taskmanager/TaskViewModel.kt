@@ -7,11 +7,16 @@ import com.google.firebase.firestore.FirebaseFirestore
 // =============================
 // Fetch All Tasks
 // =============================
-fun fetchTasks() {
+fun fetchTasks(userId: String) {
     val db = FirebaseFirestore.getInstance()
-    db.collection("tasks")
+
+    // Reference to the user's 'tasks' subcollection
+    db.collection("users")
+        .document(userId) // The specific user document
+        .collection("tasks") // The tasks subcollection
         .get()
         .addOnSuccessListener { result ->
+            // Loop through each task document in the tasks subcollection
             for (document in result) {
                 val task = document.toObject(Task::class.java)
                 Log.d("Firestore", "${task.title} - ${task.progress}")
@@ -21,6 +26,7 @@ fun fetchTasks() {
             Log.w("Firestore", "Error getting tasks", e)
         }
 }
+
 
 // =============================
 // Update Task Status

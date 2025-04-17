@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.productivitybandits.focuspocusapp.adapters.TaskAdapter
 import com.productivitybandits.focuspocusapp.repository.TasksRepository
 import com.productivitybandits.focuspocusapp.viewmodel.TasksViewModel
@@ -17,6 +18,8 @@ import com.productivitybandits.focuspocusapp.viewmodel.TasksViewModelFactory
 import kotlinx.coroutines.launch
 
 class TasksActivity : AppCompatActivity() {
+
+    val userId = FirebaseAuth.getInstance().currentUser?.uid
 
     // 🧠 Connects TasksViewModel to Repository (for API communication)
     private val tasksViewModel: TasksViewModel by viewModels{
@@ -38,7 +41,11 @@ class TasksActivity : AppCompatActivity() {
 
         // 🚀 Fetch tasks from backend and observe changes
         lifecycleScope.launch {
-            tasksViewModel.fetchTasks() // API call to get tasks
+            if (userId != null) {
+                tasksViewModel.fetchTasks(userId) // API call to get tasks
+            } else {
+                Log.e("Auth", "User is not authenticated, uid is null")
+            }
 
             tasksViewModel.tasks.collect { tasksList ->
                 taskAdapter.updateData(tasksList) // update adapter with new data
