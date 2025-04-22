@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@drawable/futuristic_background"
+    tools:context=".TasksActivity">
+
+    <!-- 💬 Header -->
+    <TextView
+        android:id="@+id/task_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Magic Mind"
+        android:textColor="@color/black"
+        android:textSize="28sp"
+        android:fontFamily="@font/genos_bold"
+        android:textStyle="italic"
+        android:layout_gravity="center_horizontal"/>
+
+    <TextView
+        android:id="@+id/task_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Task Detector"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:fontFamily="@font/genos_bold12"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="4dp"/>
+
+    <!-- 🧠 Action Buttons Row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btn_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Confirm"
+            android:background="@drawable/glow_button"
+            android:textColor="#000000"
+            android:fontFamily="@font/genos_bold12"
+            android:padding="8dp" />
+
+        <Button
+            android:id="@+id/btn_dismiss"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dismiss"
+            android:background="@drawable/glow_button"
+            android:textColor="#000000"
+            android:fontFamily="@font/genos_bold12"
+            android:layout_marginStart="8dp" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/ladykim"
+            android:layout_width="85dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="ladykim.json"
+            app:lottie_loop="true"
+            app:lottie_speed="1" />
+    </LinearLayout>
+
+    <!-- 🗂️ RecyclerView Placeholder (for task cards)-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/tasksRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        tools:listitem="@layout/item_task_card" />
+
+    <!-- 🗓️ Calendar View Placeholder -->
+    <TextView
+        android:id="@+id/calendar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calendar View"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/genos_bold12" />
+
+    <CalendarView
+        android:id="@+id/tasks_calendar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp" />
+
+    <!-- Bottom Tab Bar -->
+    <LinearLayout
+        android:id="@+id/bottom_nav"
+        android:layout_width="364dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bottom_tab_border"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="12dp">
+
+        <TextView
+            android:id="@+id/tab_home"
+            style="@style/BottomTab"
+            android:fontFamily="@font/genos_semibold12"
+            android:text="Home" />
+
+        <TextView
+            android:id="@+id/tab_tasks"
+            style="@style/BottomTab"
+            android:background="@drawable/tab_selected_bg"
+            android:fontFamily="@font/genos_semibold12"
+            android:text="Tasks" />
+
+        <TextView
+            android:id="@+id/tab_routine"
+            style="@style/BottomTab"
+            android:fontFamily="@font/genos_semibold12"
+            android:text="Routine" />
+
+        <TextView
+            android:id="@+id/tab_nudges"
+            style="@style/BottomTab"
+            android:fontFamily="@font/genos_semibold12"
+            android:text="Nudges" />
+
+
+        <TextView
+            android:id="@+id/tab_insights"
+            style="@style/BottomTab"
+            android:layout_width="wrap_content"
+            android:fontFamily="@font/genos_semibold12"
+            android:text="Insights" />
+
+        <TextView
+            android:id="@+id/tab_selfcare"
+            style="@style/BottomTab"
+            android:fontFamily="@font/genos_semibold12"
+            android:text="Self-Care" />
+    </LinearLayout>
+</LinearLayout>

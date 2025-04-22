@@ -2,10 +2,13 @@ package com.productivitybandits.focuspocusapp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import retrofit2.HttpException
+import java.io.IOException
 
 class MainActivity : AppCompatActivity() {
 
@@ -13,38 +16,33 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Example trigger (replace with a button click or real logic)
-        fetchData()
+        val sampleId = "12345"  // Example dynamic value
+        sampleId.fetchData()
     }
 
-    private fun fetchData() {
-        val staticId = "12345" // static ID used for the API call
-
-        RetrofitClient.apiService.getData(staticId).enqueue(object : Callback<DataModel> {
-            override fun onResponse(call: Call<DataModel>, response: Response<DataModel>) {
-                if (response.isSuccessful) {
-                    val data = response.body()
-                    Snackbar.make(
-                        findViewById(android.R.id.content),
-                        "Fetched Data: ${data?.name}",
-                        Snackbar.LENGTH_LONG
-                    ).show()
-                } else {
-                    Snackbar.make(
-                        findViewById(android.R.id.content),
-                        "API Error: ${response.code()}",
-                        Snackbar.LENGTH_LONG
-                    ).show()
+    private fun String.fetchData() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val response = RetrofitClient.apiService.getData(this@fetchData).execute()
+                withContext(Dispatchers.Main) {
+                    if (response.isSuccessful) {
+                        val data = response.body()
+                        data?.let {
+                            showSnackbar("Fetched Data: ${it.name}")
+                        } ?: showSnackbar("Error: No data received")
+                    } else {
+                        showSnackbar("API Error: ${response.code()}")
+                    }
                 }
+            } catch (e: IOException) {
+                withContext(Dispatchers.Main) { showSnackbar("Network Error: ${e.message}") }
+            } catch (e: HttpException) {
+                withContext(Dispatchers.Main) { showSnackbar("Server Error: ${e.message}") }
             }
+        }
+    }
 
-            override fun onFailure(call: Call<DataModel>, t: Throwable) {
-                Snackbar.make(
-                    findViewById(android.R.id.content),
-                    "Network Error: ${t.message}",
-                    Snackbar.LENGTH_LONG
-                ).show()
-            }
-        })
+    private fun showSnackbar(message: String) {
+        Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG).show()
     }
 }
