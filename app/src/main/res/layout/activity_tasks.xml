@@ -72,6 +72,13 @@
             app:lottie_speed="1" />
     </LinearLayout>
 
+    <!-- RecyclerView for Calendar Events -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/calendarRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"/>
+
     <!-- 🗂️ RecyclerView Placeholder (for task cards)-->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tasksRecyclerView"

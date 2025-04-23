@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-// Possible duplicates
 class TasksViewModel(private val repository: TasksRepository) : ViewModel() {
 
     private val _tasks = MutableStateFlow<List<Task>>(emptyList())
@@ -19,13 +18,11 @@ class TasksViewModel(private val repository: TasksRepository) : ViewModel() {
     fun fetchTasks(userId: String) {
         val db = FirebaseFirestore.getInstance()
 
-        // Reference to the user's 'tasks' subcollection
         db.collection("users")
-            .document(userId) // The specific user document
-            .collection("tasks") // The tasks subcollection
+            .document(userId)
+            .collection("tasks")
             .get()
             .addOnSuccessListener { result ->
-                // Loop through each task document in the tasks subcollection
                 for (document in result) {
                     val task = document.toObject(com.productivitybandits.taskmanager.Task::class.java)
                     Log.d("Firestore", "${task.title} - ${task.progress}")
@@ -48,15 +45,39 @@ class TasksViewModel(private val repository: TasksRepository) : ViewModel() {
         }
     }
 
-    fun deleteTask(id: String) {
-        viewModelScope.launch {
-            try {
-                repository.deleteTask(id)
-                _tasks.value = _tasks.value.filterNot{ it.id == id }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
+    fun confirmTask(userId: String, taskId: String) {
+        val db = FirebaseFirestore.getInstance()
+        val taskRef = db.collection("users").document(userId)
+            .collection("tasks").document(taskId)
+
+        db.runTransaction { transaction ->
+            val snapshot = transaction.get(taskRef)
+            val currentStreak = snapshot.getLong("streak")?.toInt() ?: 0
+
+            transaction.update(taskRef, mapOf(
+                "status" to "Confirmed",
+                "streak" to currentStreak + 1
+            ))
+        }.addOnSuccessListener {
+            Log.d("Firestore", "✅ Task confirmed with incremented streak")
+        }.addOnFailureListener { e ->
+            Log.w("Firestore", "❌ Error confirming task", e)
         }
+    }
+
+    fun deleteTask(userId: String, taskId: String) {
+        val db = FirebaseFirestore.getInstance()
+        db.collection("users")
+            .document(userId)
+            .collection("tasks")
+            .document(taskId)
+            .delete()
+            .addOnSuccessListener {
+                Log.d("Firestore", "Task deleted")
+            }
+            .addOnFailureListener { e ->
+                Log.w("Firestore", "Error deleting task", e)
+            }
     }
 
     fun completeTask(id: String) {
@@ -70,3 +91,4 @@ class TasksViewModel(private val repository: TasksRepository) : ViewModel() {
         }
     }
 }
+
