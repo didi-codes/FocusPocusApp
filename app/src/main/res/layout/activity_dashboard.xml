@@ -40,6 +40,7 @@
 
         <!-- Profile Image -->
         <ImageView
+            android:id="@+id/profileImageView"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:src="@drawable/mary"
@@ -49,6 +50,7 @@
 
         <!-- Name -->
         <TextView
+            android:id="@+id/userNameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mary Swanson"
@@ -120,7 +122,6 @@
 
             <!-- TASKS ICON -->
             <LinearLayout
-                android:id="@+id/tasksIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
@@ -146,6 +147,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/tasksIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
@@ -285,6 +287,7 @@
             <!-- ACCOUNT BUTTON -->
 
             <Button
+                android:id="@+id/accountButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="6dp"
@@ -293,53 +296,55 @@
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="8dp"
                 android:text="Account"
-                android:id="@+id/accountButton"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 
             <!-- PREFERENCES BUTTON -->
 
             <Button
-                android:layout_width="wrap_content"
+                android:id="@+id/accountPreferences"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="6dp"
+                android:layout_marginHorizontal="4dp"
+                android:layout_weight="1"
                 android:background="@drawable/glow_button"
                 android:fontFamily="@font/genos_bold"
+                android:padding="8dp"
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="8dp"
                 android:text="Preferences"
-                android:id="@+id/accountPreferences"
                 android:textColor="@color/black"
-                android:textSize="13sp" />
+                android:textSize="9sp" />
 
 
             <!-- CUSTOMIZE BUTTON -->
             <Button
-                android:layout_width="wrap_content"
+                android:id="@+id/accountCustomize"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="6dp"
+                android:layout_marginHorizontal="4dp"
+                android:layout_weight="1"
                 android:background="@drawable/glow_button"
                 android:fontFamily="@font/genos_bold"
+                android:padding="8dp"
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="8dp"
                 android:text="Customize"
-                android:id="@+id/accountCustomize"
                 android:textColor="@color/black"
-                android:textSize="14sp" />
+                android:textSize="12sp" />
 
-            <!-- LOGOUT BUTTON -->
             <Button
-                android:layout_width="wrap_content"
+                android:id="@+id/accountLogout"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="6dp"
+                android:layout_marginHorizontal="4dp"
+                android:layout_weight="1"
                 android:background="@drawable/glow_button"
                 android:fontFamily="@font/genos_bold"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="8dp"
+                android:padding="8dp"
                 android:text="Logout"
-                android:id="@+id/accountLogout"
                 android:textColor="@color/black"
-                android:textSize="14sp" />
+                android:textSize="13sp" />
         </LinearLayout>
 
     </LinearLayout>
