@@ -18,6 +18,7 @@ import com.productivitybandits.focuspocusapp.adapters.CalendarEventAdapter
 import com.productivitybandits.focuspocusapp.adapters.TaskAdapter
 import com.productivitybandits.focuspocusapp.calendar.CalendarEvent
 import com.productivitybandits.focuspocusapp.calendar.CalendarHelper
+import com.productivitybandits.focuspocusapp.calendar.CalendarHelper.fetchCalendarEvents
 import com.productivitybandits.focuspocusapp.repository.TasksRepository
 import com.productivitybandits.focuspocusapp.viewmodel.TasksViewModel
 import com.productivitybandits.focuspocusapp.viewmodel.TasksViewModelFactory
@@ -67,6 +68,13 @@ class TasksActivity : AppCompatActivity() {
 
         logCalendarAccounts(this)
 
+        val calendarAccountTextView = findViewById<TextView>(R.id.calendarAccountInfoTextView)
+        val events = fetchCalendarEvents(this)
+        val eventText = events.joinToString(separator = "\n") { event ->
+            "• ${event.title} (${Date(event.startTimeMillis)})"
+        }
+        calendarAccountTextView.text = eventText
+        
         val calendarRecycler = findViewById<RecyclerView>(R.id.calendarRecyclerView)
         calendarAdapter = CalendarEventAdapter(emptyList(), ::onConfirmEvent, ::onDismissEvent)
         calendarRecycler.layoutManager = LinearLayoutManager(this)
