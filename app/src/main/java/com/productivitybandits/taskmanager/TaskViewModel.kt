@@ -3,13 +3,15 @@ package com.productivitybandits.taskmanager
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 
-//Called instance of db in each function instead of a static/global variable due to memory leaks.
 // =============================
-// Fetch All Tasks
+// Fetch All Tasks (under user)
 // =============================
-fun fetchTasks() {
+fun fetchTasks(userId: String) {
     val db = FirebaseFirestore.getInstance()
-    db.collection("tasks")
+
+    db.collection("users")
+        .document(userId)
+        .collection("tasks")
         .get()
         .addOnSuccessListener { result ->
             for (document in result) {
@@ -25,9 +27,12 @@ fun fetchTasks() {
 // =============================
 // Update Task Status
 // =============================
-fun updateTaskStatus(taskId: String, newStatus: String) {
+fun updateTaskStatus(userId: String, taskId: String, newStatus: String) {
     val db = FirebaseFirestore.getInstance()
-    db.collection("tasks").document(taskId)
+    db.collection("users")
+        .document(userId)
+        .collection("tasks")
+        .document(taskId)
         .update("status", newStatus)
         .addOnSuccessListener {
             Log.d("Firestore", "Task updated to $newStatus")
@@ -40,9 +45,12 @@ fun updateTaskStatus(taskId: String, newStatus: String) {
 // =============================
 // Delete Task
 // =============================
-fun deleteTask(taskId: String) {
+fun deleteTask(userId: String, taskId: String) {
     val db = FirebaseFirestore.getInstance()
-    db.collection("tasks").document(taskId)
+    db.collection("users")
+        .document(userId)
+        .collection("tasks")
+        .document(taskId)
         .delete()
         .addOnSuccessListener {
             Log.d("Firestore", "Task deleted")
@@ -53,11 +61,12 @@ fun deleteTask(taskId: String) {
 }
 
 // =============================
-// Confirm Task
+// Confirm Task (increment streak)
 // =============================
-fun confirmTask(taskId: String) {
+fun confirmTask(userId: String, taskId: String) {
     val db = FirebaseFirestore.getInstance()
-    val taskRef = db.collection("tasks").document(taskId)
+    val taskRef = db.collection("users").document(userId)
+        .collection("tasks").document(taskId)
 
     db.runTransaction { transaction ->
         val snapshot = transaction.get(taskRef)
@@ -75,11 +84,12 @@ fun confirmTask(taskId: String) {
 }
 
 // =============================
-// Dismiss Task
+// Dismiss Task (reset streak)
 // =============================
-fun dismissTask(taskId: String) {
+fun dismissTask(userId: String, taskId: String) {
     val db = FirebaseFirestore.getInstance()
-    val taskRef = db.collection("tasks").document(taskId)
+    val taskRef = db.collection("users").document(userId)
+        .collection("tasks").document(taskId)
 
     db.runTransaction { transaction ->
         transaction.update(taskRef, mapOf(

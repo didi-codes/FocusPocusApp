@@ -40,6 +40,7 @@
 
         <!-- Profile Image -->
         <ImageView
+            android:id="@+id/profileImageView"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:src="@drawable/mary"
@@ -49,6 +50,7 @@
 
         <!-- Name -->
         <TextView
+            android:id="@+id/userNameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mary Swanson"
@@ -120,7 +122,6 @@
 
             <!-- TASKS ICON -->
             <LinearLayout
-                android:id="@+id/tasksIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
@@ -146,6 +147,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/tasksIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"

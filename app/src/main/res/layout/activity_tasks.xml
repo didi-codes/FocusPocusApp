@@ -72,6 +72,13 @@
             app:lottie_speed="1" />
     </LinearLayout>
 
+    <!-- RecyclerView for Calendar Events -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/calendarRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"/>
+
     <!-- 🗂️ RecyclerView Placeholder (for task cards)-->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tasksRecyclerView"
@@ -83,7 +90,6 @@
         android:paddingBottom="12dp"
         tools:listitem="@layout/item_task_card" />
 
-    <!-- 🗓️ Calendar View Placeholder -->
     <TextView
         android:id="@+id/calendar_title"
         android:layout_width="wrap_content"
@@ -93,6 +99,16 @@
         android:textStyle="bold"
         android:textColor="@color/black"
         android:layout_marginTop="24dp"
+        android:fontFamily="@font/genos_bold12" />
+
+    <TextView
+        android:id="@+id/calendarAccountInfoTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/black"
         android:fontFamily="@font/genos_bold12" />
 
     <CalendarView

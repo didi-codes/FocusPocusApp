@@ -2,14 +2,16 @@ package com.productivitybandits.focuspocusapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 class DashboardActivity : AppCompatActivity() {
@@ -21,6 +23,27 @@ class DashboardActivity : AppCompatActivity() {
         setContentView(R.layout.activity_dashboard)
 
         auth = FirebaseAuth.getInstance()
+        val userNameTextView = findViewById<TextView>(R.id.userNameTextView)
+        val uid = FirebaseAuth.getInstance().currentUser?.uid
+
+        if (uid != null) {
+            val db = FirebaseFirestore.getInstance()
+            db.collection("users").document(uid).get()
+                .addOnSuccessListener { document ->
+                    if (document.exists()) {
+                        val firstName = document.getString("firstName") ?: ""
+                        val lastName = document.getString("lastName") ?: ""
+                        userNameTextView.text = "$firstName $lastName"
+                    } else {
+                        userNameTextView.text = "Name not found"
+                    }
+                }
+                .addOnFailureListener { e ->
+                    userNameTextView.text = "Error loading name"
+                    Log.e("Firestore", "Failed to fetch name: ${e.message}")
+                }
+        }
+
 
         // Nudges icon
         val nudgesIcon: ImageView = findViewById(R.id.nudgesIcon)
