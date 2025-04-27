@@ -6,6 +6,8 @@ import android.util.Log
 
 
 ///// Register New User /////
+
+// Variables passed into method
 fun registerUser(
     email: String,
     password: String,
@@ -14,9 +16,12 @@ fun registerUser(
     lastName: String? = null,
     onResult: (Boolean, String?) -> Unit
 ) {
+    // Variable to call auth instance
     val auth = FirebaseAuth.getInstance()
+    //Variable to call db instance
     val db = FirebaseFirestore.getInstance()
 
+    //
     db.collection("users").whereEqualTo("email", email).get()
         .addOnSuccessListener { emailResult ->
             if (!emailResult.isEmpty) {
@@ -102,25 +107,20 @@ fun loginUser(email: String, password: String, onResult: (User?) -> Unit) {
 }
 
 //// Utilities ////
-fun getUser(uid: String, onResult:(User?) -> Unit) {
-    val db = FirebaseFirestore.getInstance()
-    db.collection("users").document(uid).get()
-        .addOnSuccessListener { document ->
-            if(document.exists()) {
-                val user = document.toObject(User::class.java)
-                onResult(user)
-            } else {
-                onResult(null)
-            }
-
-        }
-        .addOnFailureListener { e ->
-            Log.e("Firestore", "Error fetching user", e)
-            onResult(null)
-        }
-}
-
-
-
-
-
+//fun getUser(uid: String, onResult:(User?) -> Unit) {
+//    val db = FirebaseFirestore.getInstance()
+//    db.collection("users").document(uid).get()
+//        .addOnSuccessListener { document ->
+//            if(document.exists()) {
+//                val user = document.toObject(User::class.java)
+//                onResult(user)
+//            } else {
+//                onResult(null)
+//            }
+//
+//        }
+//        .addOnFailureListener { e ->
+//            Log.e("Firestore", "Error fetching user", e)
+//            onResult(null)
+//        }
+//}
